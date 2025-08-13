@@ -1,0 +1,29 @@
+{
+    "deeds": [
+        {
+            "id": 1,
+            "task": "tahajud",
+            "status": "done"
+        },
+        {
+            "id": 2,
+            "task": "subuh berjemaah",
+            "status": "not-done"
+        },
+        {
+            "id": 3,
+            "task": "membaca al-quran",
+            "status": "not-done"
+        },
+        {
+            "id": 4,
+            "task": "solah dhuha",
+            "status": "not-done"
+        },
+        {
+            "id": 5,
+            "task": "bersedekah",
+            "status": "not-done"
+        }
+    ]
+}
