@@ -28,6 +28,17 @@ mark_done_parser = subparser.add_parser("mark-done", help="mark as done parser")
 mark_done_parser.add_argument("deed_id", help="add your deeds id", type=int)
 mark_done_parser.add_argument("-p", "--player_id", help="your player id", type=int, required=True)
 
+# List parser
+list_parser = subparser.add_parser("list",help="list the deeds")
+
+# Display coin parser
+display_coin_parser = subparser.add_parser("coin",help="display your current coin")
+display_coin_parser.add_argument("player_id", help="your player id", type=int)
+
+# Sedekah parser
+sedekah_parser = subparser.add_parser("sedekah", help="sedekah your coin!")
+sedekah_parser.add_argument("player_id", help="your player id", type=int)
+
 args = parser.parse_args()
 
 #function to save data.json
@@ -73,7 +84,37 @@ def mark_done(data, deed_id,player_data, player_id):
     else:
         print(f"Deed [ID:{deed_id}] not found")
 
+
+def list_deeds (data):
+
+    deeds = data["deeds"]
+
+    print("ID | Deeds                | Status       |")
+    print("-" * 43)
+    for deed in deeds:
+        print(f"{deed['id']:2} | {deed['task'][:20]:<20} | {deed['status']:<12} |") #:2 means two spaces
+
+
+def display_coin(player_data, player_id):
+
+    players = player_data["player"]
+    player_found = False
+
+    for i,player in enumerate(players):
+        if player["id"] == player_id:
+            print(f"{player['name']} [{player['coin']}] coins")
+            player_found = True
+
+    if player_found == False:
+        print(f"Player [ID:{player_id}] not found")
+
+        
 if args.command == "mark-done":
     deed_id = args.deed_id
     player_id = args.player_id
     mark_done(data,deed_id,player_data,player_id)
+if args.command == "list":
+    list_deeds(data)
+if args.command == "coin":
+    player_id = args.player_id
+    display_coin(player_data, player_id)
