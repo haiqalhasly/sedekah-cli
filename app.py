@@ -38,6 +38,7 @@ display_coin_parser.add_argument("player_id", help="your player id", type=int)
 # Sedekah parser
 sedekah_parser = subparser.add_parser("sedekah", help="sedekah your coin!")
 sedekah_parser.add_argument("player_id", help="your player id", type=int)
+sedekah_parser.add_argument("-to", "--to_receiver", dest="receiver_id", help=" the id of receiver", type=int, required=True)
 
 args = parser.parse_args()
 
@@ -108,6 +109,36 @@ def display_coin(player_data, player_id):
     if player_found == False:
         print(f"Player [ID:{player_id}] not found")
 
+def sedekah(player_data, player_id, receiver_id):
+
+    players = player_data["player"]
+    player_found = False
+    receiver_found = True
+
+    for i,player in enumerate(players):
+        if player["id"] == player_id:
+            player_found = True
+            if player["coin"] <= 0:
+                print(f"Player {player['id']} have insufficient balance!")
+                break
+            else:
+                for i,receiver in enumerate(players):
+                    if receiver["id"] == receiver_id:   
+                        receiver_found = True     
+                        player["coin"] -=1
+                        receiver["coin"] +=1
+                        save_coin(player_data)
+                        print(f"Player {player['id']} have sedekah 1 coin! to Player {receiver['id']}")
+                    else:
+                        receiver_found = False
+                    
+
+    if player_found == False:
+        print(f"Player [ID:{player_id}] not found")
+    if receiver_found == False:
+        print(f"Receiver Player [ID:{receiver_id}] not found")        
+
+
         
 if args.command == "mark-done":
     deed_id = args.deed_id
@@ -118,3 +149,7 @@ if args.command == "list":
 if args.command == "coin":
     player_id = args.player_id
     display_coin(player_data, player_id)
+if args.command == "sedekah":
+    player_id = args.player_id
+    receiver_id = args.receiver_id
+    sedekah(player_data, player_id, receiver_id)
