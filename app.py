@@ -20,8 +20,6 @@ if not os.path.exists("player.json"):
 with open("player.json", "r") as file :
     player_data = json.load(file)
 
-
-
 parser = argparse.ArgumentParser()
 subparser = parser.add_subparsers(dest="command", help="command for subparse")
 
@@ -31,7 +29,6 @@ mark_done_parser.add_argument("deed_id", help="add your deeds id", type=int)
 mark_done_parser.add_argument("-p", "--player_id", help="your player id", type=int, required=True)
 
 args = parser.parse_args()
-
 
 #function to save data.json
 def save_data(data):
@@ -55,11 +52,9 @@ def add_coin(player_data, player_id):
             player_found = True
 
     if player_found == True:
-        print(f"Player (ID:{player_id}) gained 1 coin!")
+        print(f"Player [ID:{player_id}] gained 1 coin!")
     else:
-        print(f"Player (ID:{player_id}) not found")
-
-
+        print(f"Player [ID:{player_id}] not found")
 
 def mark_done(data, deed_id,player_data, player_id):
 
@@ -73,10 +68,10 @@ def mark_done(data, deed_id,player_data, player_id):
             deed_found = True
 
     if deed_found == True:
-        print(f"Deed (ID:{deed_id}) marked")
+        print(f"Deed [ID:{deed_id}] marked")
         add_coin(player_data, player_id)
     else:
-        print(f"Deed (ID:{deed_id}) not found")
+        print(f"Deed [ID:{deed_id}] not found")
 
 if args.command == "mark-done":
     deed_id = args.deed_id

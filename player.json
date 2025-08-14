@@ -18,12 +18,12 @@
         {
             "id": 4,
             "name": "abdullah",
-            "coin": 0
+            "coin": 1
         },
         {
             "id": 5,
             "name": "nur",
-            "coin": 0
+            "coin": 1
         }
     ]
 }
