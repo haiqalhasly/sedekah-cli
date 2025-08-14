@@ -1,0 +1,29 @@
+{
+    "player": [
+        {
+            "id": 1,
+            "name": "ali",
+            "coin": 0
+        },
+        {
+            "id": 2,
+            "name": "abu",
+            "coin": 2
+        },
+        {
+            "id": 3,
+            "name": "aminah",
+            "coin": 0
+        },
+        {
+            "id": 4,
+            "name": "abdullah",
+            "coin": 0
+        },
+        {
+            "id": 5,
+            "name": "nur",
+            "coin": 0
+        }
+    ]
+}
