@@ -42,13 +42,29 @@ def save_data(data):
 def save_coin(player_data):
     with open("player.json", "w") as file :
         json.dump(player_data, file, indent=4)
-    
-def mark_done(data, deed_id,player_data, player_id):
-    deeds = data["deeds"]
-    deed_found = False
+
+def add_coin(player_data, player_id):
 
     players = player_data["player"]
     player_found = False
+
+    for i,player in enumerate(players):
+        if player["id"] == player_id:
+            player["coin"] +=1
+            save_coin(player_data)
+            player_found = True
+
+    if player_found == True:
+        print(f"Player (ID:{player_id}) gained 1 coin!")
+    else:
+        print(f"Player (ID:{player_id}) not found")
+
+
+
+def mark_done(data, deed_id,player_data, player_id):
+
+    deeds = data["deeds"]
+    deed_found = False
 
     for i,deed in enumerate(deeds):
         if deed["id"] == deed_id:
@@ -56,23 +72,11 @@ def mark_done(data, deed_id,player_data, player_id):
             save_data(data)
             deed_found = True
 
-        
-
     if deed_found == True:
         print(f"Deed (ID:{deed_id}) marked")
-        for i,player in enumerate(players):
-            if player["id"] == player_id:
-                player["coin"] +=1
-                save_coin(player_data)
-                player_found = True
+        add_coin(player_data, player_id)
     else:
         print(f"Deed (ID:{deed_id}) not found")
-    
-    if player_found == True:
-        print(f"Player (ID:{player_id}) gained 1 coin!")
-    else:
-        print(f"Player (ID:{player_id}) not found")
-
 
 if args.command == "mark-done":
     deed_id = args.deed_id
