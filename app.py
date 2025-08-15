@@ -23,6 +23,12 @@ with open("player.json", "r") as file :
 parser = argparse.ArgumentParser()
 subparser = parser.add_subparsers(dest="command", help="command for subparse")
 
+# Login
+login_parser = subparser.add_parser("login", help="login with name and password")
+login_parser.add_argument("username", help="your username")
+login_parser.add_argument("password", help="your password")
+
+
 # Mark as done parser
 mark_done_parser = subparser.add_parser("mark-done", help="mark as done parser")
 mark_done_parser.add_argument("deed_id", help="add your deeds id", type=int)
@@ -42,11 +48,28 @@ sedekah_parser.add_argument("-to", "--to_receiver", dest="receiver_id", help=" t
 
 args = parser.parse_args()
 
+def login(username, password, player_data):
+
+    players = player_data["player"]
+    login_success = False
+
+    for i,player in enumerate(players):
+        if player["name"] == username and player["password"] == password:
+            login_success = True
+            player_id = player["id"]
+            break
+
+    if login_success == True:
+        print(f"Welcome {username}. You have login successfully")
+        return player["id"]
+    else:
+        print("Your username or password are wrong")
+
 #function to save data.json
 def save_data(data):
     with open("data.json", "w") as file :
         json.dump(data, file, indent=4)
-        
+
 #function to save player.json
 def save_coin(player_data):
     with open("player.json", "w") as file :
@@ -85,7 +108,6 @@ def mark_done(data, deed_id,player_data, player_id):
     else:
         print(f"Deed [ID:{deed_id}] not found")
 
-
 def list_deeds (data):
 
     deeds = data["deeds"]
@@ -94,7 +116,6 @@ def list_deeds (data):
     print("-" * 43)
     for deed in deeds:
         print(f"{deed['id']:2} | {deed['task'][:20]:<20} | {deed['status']:<12} |") #:2 means two spaces
-
 
 def display_coin(player_data, player_id):
 
@@ -138,8 +159,11 @@ def sedekah(player_data, player_id, receiver_id):
     if receiver_found == False:
         print(f"Receiver Player [ID:{receiver_id}] not found")        
 
-
-        
+if args.command == "login":
+    username = args.username
+    password = args.password
+    player_id = login(username, password, player_data)
+    print(player_id)
 if args.command == "mark-done":
     deed_id = args.deed_id
     player_id = args.player_id
