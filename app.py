@@ -20,6 +20,15 @@ if not os.path.exists("player.json"):
 with open("player.json", "r") as file :
     player_data = json.load(file)
 
+# Create JSON file if it doesn't exist
+if not os.path.exists("session.json"):
+    with open("session.json", "w") as file:
+        json.dump([], file)
+
+# Open the file
+with open("session.json", "r") as file :
+    session_data = json.load(file)
+
 parser = argparse.ArgumentParser()
 subparser = parser.add_subparsers(dest="command", help="command for subparse")
 
@@ -32,7 +41,6 @@ login_parser.add_argument("password", help="your password")
 # Mark as done parser
 mark_done_parser = subparser.add_parser("mark-done", help="mark as done parser")
 mark_done_parser.add_argument("deed_id", help="add your deeds id", type=int)
-mark_done_parser.add_argument("-p", "--player_id", help="your player id", type=int, required=True)
 
 # List parser
 list_parser = subparser.add_parser("list",help="list the deeds")
@@ -48,6 +56,14 @@ sedekah_parser.add_argument("-to", "--to_receiver", dest="receiver_id", help=" t
 
 args = parser.parse_args()
 
+def create_session(player_data):
+
+    with open("session.json", "w") as session_file:
+        json.dump(player_data, session_file, indent=1 )
+        print("Creating session...")
+        
+
+
 def login(username, password, player_data):
 
     players = player_data["player"]
@@ -57,6 +73,7 @@ def login(username, password, player_data):
         if player["name"] == username and player["password"] == password:
             login_success = True
             player_id = player["id"]
+            create_session(player)
             break
 
     if login_success == True:
@@ -166,7 +183,6 @@ if args.command == "login":
     print(player_id)
 if args.command == "mark-done":
     deed_id = args.deed_id
-    player_id = args.player_id
     mark_done(data,deed_id,player_data,player_id)
 if args.command == "list":
     list_deeds(data)

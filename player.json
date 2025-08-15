@@ -1,34 +1,9 @@
 {
     "player": [
-        {
-            "id": 1,
-            "name": "ali",
-            "password":"123",
-            "coin": 12
-        },
-        {
-          "id": 2,
-          "name": "abu",
-          "password": "456",
-          "coin": 8
-        },
-        {
-          "id": 3,
-          "name": "aminah",
-          "password": "789",
-          "coin": 12
-        },
-        {
-          "id": 4,
-          "name": "abdullah",
-          "password": "101",
-          "coin": 11
-        },
-        {
-          "id": 5,
-          "name": "nur",
-          "password": "121  ",
-          "coin": 11
-        }
+        {"id": 1,"name": "ali","password":"123","coin": 12},
+        {"id": 2,"name": "abu","password": "456","coin": 8},
+        {"id": 3,"name": "aminah","password": "789","coin": 12},
+        {"id": 4,"name": "abdullah","password": "101","coin": 11},
+        {"id": 5,"name": "nur","password": "121  ","coin": 11}
     ]
 }
