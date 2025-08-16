@@ -2,65 +2,18 @@ import argparse
 import json
 import os
 
-# Create JSON file if it doesn't exist
-if not os.path.exists("data.json"):
-    with open("data.json", "w") as file:
-        json.dump([], file)
-
-# Open the file
-with open("data.json", "r") as file :
-    data = json.load(file)
-
-# Create JSON file if it doesn't exist
-if not os.path.exists("player.json"):
-    with open("player.json", "w") as file:
-        json.dump([], file)
-
-# Open the file
-with open("player.json", "r") as file :
-    player_data = json.load(file)
-
-# Create JSON file if it doesn't exist
-if not os.path.exists("session.json"):
-    with open("session.json", "w") as file:
-        json.dump([], file)
-
-# Open the file
-with open("session.json", "r") as file :
-    session_data = json.load(file)
-
-parser = argparse.ArgumentParser()
-subparser = parser.add_subparsers(dest="command", help="command for subparse")
-
-# Login
-login_parser = subparser.add_parser("login", help="login with name and password")
-login_parser.add_argument("username", help="your username")
-login_parser.add_argument("password", help="your password")
-
-
-# Mark as done parser
-mark_done_parser = subparser.add_parser("mark-done", help="mark as done parser")
-mark_done_parser.add_argument("deed_id", help="add your deeds id", type=int)
-
-# List parser
-list_parser = subparser.add_parser("list",help="list the deeds")
-
-# Display coin parser
-display_coin_parser = subparser.add_parser("coin",help="display your current coin")
-display_coin_parser.add_argument("player_id", help="your player id", type=int)
-
-# Sedekah parser
-sedekah_parser = subparser.add_parser("sedekah", help="sedekah your coin!")
-sedekah_parser.add_argument("player_id", help="your player id", type=int)
-sedekah_parser.add_argument("-to", "--to_receiver", dest="receiver_id", help=" the id of receiver", type=int, required=True)
-
-args = parser.parse_args()
+def is_authenticated():
+    return os.path.exists("session.json")
 
 def create_session(player_data):
 
     with open("session.json", "w") as session_file:
         json.dump(player_data, session_file, indent=1 )
         print("Creating session...")
+
+def clear_session():
+    if os.path.exists("session.json"):
+        os.remove("session.json")
         
 def login(username, password, player_data):
 
@@ -79,6 +32,10 @@ def login(username, password, player_data):
         return player["id"]
     else:
         print("Your username or password are wrong")
+
+def logout():
+    clear_session()
+    print("Logged out successfully")
 
 #function to save data.json
 def save_data(data):
@@ -178,23 +135,81 @@ def sedekah(player_data, player_id, receiver_id):
         print(f"Receiver Player [ID:{receiver_id}] not found")        
 
 
-if args.command == "login":
-    username = args.username
-    password = args.password
-    player_id = login(username, password, player_data)
-    print(player_id)
+def main():
 
-if args.command == "mark-done":
-    deed_id = args.deed_id 
-    mark_done(data,deed_id,player_data,player_id)
-    print("Congrats! Your marking is done")
-if args.command == "list":
-    list_deeds(data)
-if args.command == "coin":
-    player_id = args.player_id
-    display_coin(player_data, player_id)
-if args.command == "sedekah":
-    player_id = args.player_id
-    receiver_id = args.receiver_id
-    sedekah(player_data, player_id, receiver_id)
+    # Create JSON file if it doesn't exist
+    if not os.path.exists("data.json"):
+        with open("data.json", "w") as file:
+            json.dump([], file)
 
+    # Open the file
+    with open("data.json", "r") as file :
+        data = json.load(file)
+
+    # Create JSON file if it doesn't exist
+    if not os.path.exists("player.json"):
+        with open("player.json", "w") as file:
+            json.dump([], file)
+
+    # Open the file
+    with open("player.json", "r") as file :
+        player_data = json.load(file)
+
+
+    parser = argparse.ArgumentParser()
+    subparser = parser.add_subparsers(dest="command", help="command for subparse")
+
+    # Login
+    login_parser = subparser.add_parser("login", help="login with name and password")
+    login_parser.add_argument("username", help="your username")
+    login_parser.add_argument("password", help="your password")
+
+    # Logout
+    logout_parser = subparser.add_parser("logout", help="logout your account")
+
+    # Mark as done parser
+    mark_done_parser = subparser.add_parser("mark-done", help="mark as done parser")
+    mark_done_parser.add_argument("deed_id", help="add your deeds id", type=int)
+
+    # List parser
+    list_parser = subparser.add_parser("list",help="list the deeds")
+
+    # Display coin parser
+    display_coin_parser = subparser.add_parser("coin",help="display your current coin")
+    display_coin_parser.add_argument("player_id", help="your player id", type=int)
+
+    # Sedekah parser
+    sedekah_parser = subparser.add_parser("sedekah", help="sedekah your coin!")
+    sedekah_parser.add_argument("player_id", help="your player id", type=int)
+    sedekah_parser.add_argument("-to", "--to_receiver", dest="receiver_id", help=" the id of receiver", type=int, required=True)
+
+    args = parser.parse_args()
+
+   
+
+    if args.command == "login":
+        player_id = login(args.username, args.password, player_data)
+        print(player_id)
+    elif args.command == "logout":
+        logout()
+    else: 
+        if not is_authenticated():
+            print("You must login first!")
+            return
+
+        if args.command == "mark-done":
+            deed_id = args.deed_id 
+            mark_done(data,deed_id,player_data,player_id)
+            print("Congrats! Your marking is done")
+        if args.command == "list":
+            list_deeds(data)
+        if args.command == "coin":
+            player_id = args.player_id
+            display_coin(player_data, player_id)
+        if args.command == "sedekah":
+            player_id = args.player_id
+            receiver_id = args.receiver_id
+            sedekah(player_data, player_id, receiver_id)
+
+if __name__ == "__main__":
+    main()
