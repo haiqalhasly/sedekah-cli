@@ -62,8 +62,6 @@ def create_session(player_data):
         json.dump(player_data, session_file, indent=1 )
         print("Creating session...")
         
-
-
 def login(username, password, player_data):
 
     players = player_data["player"]
@@ -117,6 +115,7 @@ def mark_done(data, deed_id,player_data, player_id):
         if deed["id"] == deed_id:
             deed["status"] = "done"
             save_data(data)
+            print("checking your deed...")
             deed_found = True
 
     if deed_found == True:
@@ -149,6 +148,8 @@ def display_coin(player_data, player_id):
 
 def sedekah(player_data, player_id, receiver_id):
 
+
+
     players = player_data["player"]
     player_found = False
     receiver_found = True
@@ -176,14 +177,17 @@ def sedekah(player_data, player_id, receiver_id):
     if receiver_found == False:
         print(f"Receiver Player [ID:{receiver_id}] not found")        
 
+
 if args.command == "login":
     username = args.username
     password = args.password
     player_id = login(username, password, player_data)
     print(player_id)
+
 if args.command == "mark-done":
-    deed_id = args.deed_id
+    deed_id = args.deed_id 
     mark_done(data,deed_id,player_data,player_id)
+    print("Congrats! Your marking is done")
 if args.command == "list":
     list_deeds(data)
 if args.command == "coin":
@@ -193,3 +197,4 @@ if args.command == "sedekah":
     player_id = args.player_id
     receiver_id = args.receiver_id
     sedekah(player_data, player_id, receiver_id)
+
