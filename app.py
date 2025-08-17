@@ -84,14 +84,26 @@ def mark_done(deed_id,player_data, player_id):
             else:
                 print(f"Deed [ID:{deed_id}] not found")
 
-def list_deeds (data):
+def list_deeds (player_data, player_id):
+            
+    #Find the player id
 
-    deeds = data["deeds"]
+    players = player_data["player"]
+    player_found = False
 
-    print("ID | Deeds                | Status       |")
-    print("-" * 43)
-    for deed in deeds:
-        print(f"{deed['id']:2} | {deed['task'][:20]:<20} | {deed['status']:<12} |") #:2 means two spaces
+    for i,player in enumerate(players):
+        if player["id"] == player_id:
+            player["coin"] +=1
+            save_coin(player_data)
+
+        #Find the deed id
+
+            deeds = player["deeds"]
+
+            print("ID | Deeds                | Status       |")
+            print("-" * 43)
+            for deed in deeds:
+                print(f"{deed['id']:2} | {deed['task'][:20]:<20} | {deed['status']:<12} |") #:2 means two spaces
 
 def display_coin(player_data, player_id):
 
@@ -199,7 +211,8 @@ def main():
             player_id = get_player_id(session_data)
             mark_done(deed_id,player_data,player_id)
         if args.command == "list":
-            list_deeds()
+            player_id = get_player_id(session_data)
+            list_deeds(player_data,player_id)
         if args.command == "coin":
             player_id = get_player_id(session_data)
             display_coin(player_data, player_id)
