@@ -127,6 +127,9 @@ def sedekah(player_data, player_id, receiver_id):
                 print(f"Player {player['id']} have insufficient balance!")
                 break
             else:
+                if receiver_id == player_id:
+                    print("You cannot give it to yourself")
+                    break
                 for i,receiver in enumerate(players):
                     if receiver["id"] == receiver_id:   
                         receiver_found = True     
