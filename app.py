@@ -141,6 +141,7 @@ def sedekah(player_data, player_id, receiver_id):
                         receiver["coin"] +=1
                         save_coin(player_data)
                         print(f"Player {player['id']} have sedekah 1 coin! to Player {receiver['id']}")
+                        break
                     else:
                         receiver_found = False
                     
