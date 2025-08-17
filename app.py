@@ -44,11 +44,6 @@ def logout():
     clear_session()
     print("Logged out successfully")
 
-#function to save data.json
-def save_data(data):
-    with open("data.json", "w") as file :
-        json.dump(data, file, indent=4)
-
 def save_coin(player_data):
     with open("player.json", "w") as file :
         json.dump(player_data, file, indent=4)
@@ -58,7 +53,10 @@ def get_player_id (session_data):
     player_id = session_data["id"]
     return player_id
 
-def add_coin(player_data, player_id):
+
+def mark_done(deed_id,player_data, player_id):
+
+    #Find the player id
 
     players = player_data["player"]
     player_found = False
@@ -67,30 +65,24 @@ def add_coin(player_data, player_id):
         if player["id"] == player_id:
             player["coin"] +=1
             save_coin(player_data)
-            player_found = True
 
-    if player_found == True:
-        print(f"Player [ID:{player_id}] gained 1 coin!")
-    else:
-        print(f"Player [ID:{player_id}] not found")
+        #Find the deed id
 
-def mark_done(data, deed_id,player_data, player_id):
+            deeds = player["deeds"]
+            deed_found = False
 
-    deeds = data["deeds"]
-    deed_found = False
+            for i,deed in enumerate(deeds):
+                if deed["id"] == deed_id:
+                    deed["status"] = "done"
+                    save_coin(player_data)
+                    print("checking your deed...")
+                    deed_found = True
 
-    for i,deed in enumerate(deeds):
-        if deed["id"] == deed_id:
-            deed["status"] = "done"
-            save_data(data)
-            print("checking your deed...")
-            deed_found = True
-
-    if deed_found == True:
-        print(f"Deed [ID:{deed_id}] marked")
-        add_coin(player_data, player_id)
-    else:
-        print(f"Deed [ID:{deed_id}] not found")
+            if deed_found == True:
+                print(f"Deed [ID:{deed_id}] marked")
+                print(f"Player [ID:{player_id}] gained 1 coin!")
+            else:
+                print(f"Deed [ID:{deed_id}] not found")
 
 def list_deeds (data):
 
@@ -149,14 +141,6 @@ def sedekah(player_data, player_id, receiver_id):
 
 def main():
 
-    # Create JSON file if it doesn't exist
-    if not os.path.exists("data.json"):
-        with open("data.json", "w") as file:
-            json.dump([], file)
-
-    # Open the file
-    with open("data.json", "r") as file :
-        data = json.load(file)
 
     # Create JSON file if it doesn't exist
     if not os.path.exists("player.json"):
@@ -213,10 +197,9 @@ def main():
         if args.command == "mark-done":
             deed_id = args.deed_id 
             player_id = get_player_id(session_data)
-            mark_done(data,deed_id,player_data,player_id)
-            print("Congrats! Your marking is done")
+            mark_done(deed_id,player_data,player_id)
         if args.command == "list":
-            list_deeds(data)
+            list_deeds()
         if args.command == "coin":
             player_id = get_player_id(session_data)
             display_coin(player_data, player_id)
