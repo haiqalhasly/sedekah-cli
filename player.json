@@ -4,19 +4,19 @@
             "id": 1,
             "name": "ali",
             "password": "123",
-            "coin": 10
+            "coin": 9
         },
         {
             "id": 2,
             "name": "abu",
             "password": "456",
-            "coin": 8
+            "coin": 9
         },
         {
             "id": 3,
             "name": "aminah",
             "password": "789",
-            "coin": 14
+            "coin": 15
         },
         {
             "id": 4,

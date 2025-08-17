@@ -7,21 +7,16 @@ def is_authenticated():
 
 def create_session(player_data):
 
+
+    player_session_data = {
+            "id": player_data["id"],
+            "name": player_data["name"]
+        }
     # Create JSON file if it doesn't exist
     if not os.path.exists("session.json"):
         with open("session.json", "w") as session_file:
-            json.dump(player_data, session_file, indent=1 )
+            json.dump(player_session_data, session_file, indent=1 )
             print("Creating session...")
-
-def save_session(session_data, player_data):
-
-    players = player_data["player"]
-
-    for i,player in enumerate(players):
-        if player["id"] == int(session_data["id"]):
-            player["coin"] = int(session_data["coin"])
-            save_coin(player_data)
-            print("session saved!")
 
 def clear_session():
     if os.path.exists("session.json"):
@@ -45,9 +40,7 @@ def login(username, password, player_data):
     else:
         print("Your username or password are wrong")
 
-def logout(session_data,player_data):
-
-    save_session(session_data, player_data)
+def logout():
     clear_session()
     print("Logged out successfully")
 
@@ -208,7 +201,7 @@ def main():
     if args.command == "login":
         login(args.username, args.password, player_data)
     elif args.command == "logout":
-        logout(session_data, player_data)
+        logout()
     else: 
         if not is_authenticated():
             print("You must login first!")
