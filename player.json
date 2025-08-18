@@ -4,32 +4,32 @@
             "id": 1,
             "name": "ali",
             "password": "123",
-            "coin": 13,
+            "coin": 14,
             "deeds": [
                 {
                     "id": 1,
                     "task": "tahajud",
-                    "status": "done"
+                    "status": "not-done"
                 },
                 {
                     "id": 2,
                     "task": "subuh berjemaah",
-                    "status": "done"
+                    "status": "not-done"
                 },
                 {
                     "id": 3,
                     "task": "membaca al-quran",
-                    "status": "done"
+                    "status": "not-done"
                 },
                 {
                     "id": 4,
                     "task": "solat dhuha",
-                    "status": "done"
+                    "status": "not-done"
                 },
                 {
                     "id": 5,
                     "task": "bersedekah",
-                    "status": "done"
+                    "status": "not-done"
                 }
             ]
         },
@@ -37,32 +37,32 @@
             "id": 2,
             "name": "abu",
             "password": "456",
-            "coin": 9,
+            "coin": 10,
             "deeds": [
                 {
                     "id": 1,
                     "task": "tahajud",
-                    "status": "done"
+                    "status": "not-done"
                 },
                 {
                     "id": 2,
                     "task": "subuh berjemaah",
-                    "status": "done"
+                    "status": "not-done"
                 },
                 {
                     "id": 3,
                     "task": "membaca al-quran",
-                    "status": "done"
+                    "status": "not-done"
                 },
                 {
                     "id": 4,
                     "task": "solat dhuha",
-                    "status": "done"
+                    "status": "not-done"
                 },
                 {
                     "id": 5,
                     "task": "bersedekah",
-                    "status": "done"
+                    "status": "not-done"
                 }
             ]
         },
@@ -70,32 +70,32 @@
             "id": 3,
             "name": "aminah",
             "password": "789",
-            "coin": 16,
+            "coin": 13,
             "deeds": [
                 {
                     "id": 1,
                     "task": "tahajud",
-                    "status": "done"
+                    "status": "not-done"
                 },
                 {
                     "id": 2,
                     "task": "subuh berjemaah",
-                    "status": "done"
+                    "status": "not-done"
                 },
                 {
                     "id": 3,
                     "task": "membaca al-quran",
-                    "status": "done"
+                    "status": "not-done"
                 },
                 {
                     "id": 4,
                     "task": "solat dhuha",
-                    "status": "done"
+                    "status": "not-done"
                 },
                 {
                     "id": 5,
                     "task": "bersedekah",
-                    "status": "done"
+                    "status": "not-done"
                 }
             ]
         },
@@ -103,32 +103,32 @@
             "id": 4,
             "name": "abdullah",
             "password": "101",
-            "coin": 11,
+            "coin": 12,
             "deeds": [
                 {
                     "id": 1,
                     "task": "tahajud",
-                    "status": "done"
+                    "status": "not-done"
                 },
                 {
                     "id": 2,
                     "task": "subuh berjemaah",
-                    "status": "done"
+                    "status": "not-done"
                 },
                 {
                     "id": 3,
                     "task": "membaca al-quran",
-                    "status": "done"
+                    "status": "not-done"
                 },
                 {
                     "id": 4,
                     "task": "solat dhuha",
-                    "status": "done"
+                    "status": "not-done"
                 },
                 {
                     "id": 5,
                     "task": "bersedekah",
-                    "status": "done"
+                    "status": "not-done"
                 }
             ]
         },
@@ -136,32 +136,32 @@
             "id": 5,
             "name": "nur",
             "password": "121  ",
-            "coin": 11,
+            "coin": 12,
             "deeds": [
                 {
                     "id": 1,
                     "task": "tahajud",
-                    "status": "done"
+                    "status": "not-done"
                 },
                 {
                     "id": 2,
                     "task": "subuh berjemaah",
-                    "status": "done"
+                    "status": "not-done"
                 },
                 {
                     "id": 3,
                     "task": "membaca al-quran",
-                    "status": "done"
+                    "status": "not-done"
                 },
                 {
                     "id": 4,
                     "task": "solat dhuha",
-                    "status": "done"
+                    "status": "not-done"
                 },
                 {
                     "id": 5,
                     "task": "bersedekah",
-                    "status": "done"
+                    "status": "not-done"
                 }
             ]
         }
