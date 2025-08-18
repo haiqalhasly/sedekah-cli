@@ -4,7 +4,7 @@ This project is a to-do app with a twist. You can finish the tasks and gained co
 
 ## Demo
 
-<img src="demo_doit.gif" alt="Preview">
+<img src="demo-sedekah.gif" alt="Preview">
 </a>
 
 ## Features:
